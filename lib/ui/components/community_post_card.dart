@@ -28,7 +28,7 @@ class CommunityPostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 88,
+      height: 96,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
@@ -56,7 +56,7 @@ class CommunityPostCard extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,

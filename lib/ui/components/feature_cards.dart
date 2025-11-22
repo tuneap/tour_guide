@@ -15,18 +15,18 @@ class FeatureCardsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: cards
-          .map(
-            (card) => Expanded(
-              child: Padding(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: cards
+            .map(
+              (card) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: _FeatureCard(card: card),
+                child: SizedBox(width: 140, child: _FeatureCard(card: card)),
               ),
-            ),
-          )
-          .toList(),
+            )
+            .toList(),
+      ),
     );
   }
 }
@@ -53,11 +53,13 @@ class _FeatureCard extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Icon(card.icon, color: AppColors.primary),
           const SizedBox(width: 10),
           Text(
             card.title,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
           ),
         ],

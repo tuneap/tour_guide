@@ -27,21 +27,79 @@ class FeaturedList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _FeaturedListView(destinations: destinations);
+  }
+}
+
+class _FeaturedListView extends StatefulWidget {
+  const _FeaturedListView({required this.destinations});
+
+  final List<DestinationCardData> destinations;
+
+  @override
+  State<_FeaturedListView> createState() => _FeaturedListViewState();
+}
+
+class _FeaturedListViewState extends State<_FeaturedListView> {
+  late final PageController _pageController;
+  double _page = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(viewportFraction: 0.75)
+      ..addListener(_handleScroll);
+  }
+
+  void _handleScroll() {
+    if (!_pageController.hasClients) return;
+    final next = _pageController.page ?? 0;
+    if (next == _page) return;
+    setState(() {
+      _page = next;
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController
+      ..removeListener(_handleScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           height: 220,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: destinations.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) =>
-                _DestinationCard(data: destinations[index]),
-          ),
+          child: PageView.builder(
+              controller: _pageController,
+              padEnds: true,
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemCount: widget.destinations.length,
+              itemBuilder: (context, index) => Padding(
+                padding: EdgeInsets.only(
+                  right: index == widget.destinations.length - 1 ? 0 : 12,
+                ),
+                child: _DestinationCard(data: widget.destinations[index]),
+              )),
         ),
         const SizedBox(height: 10),
-        const _PagerIndicator(),
+        Center(
+          child: SizedBox(
+            width: 110,
+            child: _PagerIndicator(
+              progress: widget.destinations.length > 1
+                  ? (_page / (widget.destinations.length - 1)).clamp(0, 1)
+                  : 0,
+              itemCount: widget.destinations.length,
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -61,7 +119,7 @@ class _DestinationCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -115,7 +173,7 @@ class _DestinationCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: data.tagColor.withOpacity(0.14),
+                        color: data.tagColor.withValues(alpha: 0.14),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -139,31 +197,52 @@ class _DestinationCard extends StatelessWidget {
 }
 
 class _PagerIndicator extends StatelessWidget {
-  const _PagerIndicator();
+  const _PagerIndicator({
+    required this.progress,
+    required this.itemCount,
+  });
+
+  final double progress;
+  final int itemCount;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 10,
-        width: 110,
-        decoration: BoxDecoration(
-          color: const Color(0xFFDADFE4),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 6),
-            height: 6,
-            width: 50,
-            decoration: BoxDecoration(
-              color: const Color(0xFF888B8F),
-              borderRadius: BorderRadius.circular(10),
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final trackWidth = constraints.maxWidth;
+        final handleWidth = (itemCount > 0
+                ? trackWidth / itemCount
+                : trackWidth)
+            .clamp(28, trackWidth)
+            .toDouble();
+        final maxOffset =
+            (trackWidth - handleWidth).clamp(0, trackWidth).toDouble();
+        final left = maxOffset * progress.clamp(0, 1);
+
+        return Container(
+          height: 10,
+          decoration: BoxDecoration(
+            color: const Color(0xFFDADFE4),
+            borderRadius: BorderRadius.circular(10),
           ),
-        ),
-      ),
+          child: Stack(
+            children: [
+              Positioned(
+                left: left,
+                top: 2,
+                bottom: 2,
+                child: Container(
+                  width: handleWidth,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF888B8F),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -9,6 +9,7 @@ import '../components/feature_cards.dart';
 import '../components/plan_header.dart';
 import '../components/section_header.dart';
 import '../components/top_bar.dart';
+import 'profile_screen.dart';
 
 class TourBookHome extends StatefulWidget {
   const TourBookHome({super.key});
@@ -21,43 +22,43 @@ class _TourBookHomeState extends State<TourBookHome> {
   bool _showAllPosts = false;
 
   List<CommunityPostData> get _communityPosts => const [
-    CommunityPostData(
-      title: 'Night market finds',
-      author: 'Alex',
-      likes: 124,
-      comments: 18,
-      imageUrl:
-          'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
-      accent: Color(0xFFB4B5BE),
-    ),
-    CommunityPostData(
-      title: 'Sunrise trail tips',
-      author: 'Maya',
-      likes: 87,
-      comments: 32,
-      imageUrl:
-          'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=400&q=80',
-      accent: Color(0xFF144019),
-    ),
-    CommunityPostData(
-      title: 'Street food crawl',
-      author: 'Noah',
-      likes: 65,
-      comments: 14,
-      imageUrl:
-          'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=400&q=80',
-      accent: Color(0xFF8E4C1B),
-    ),
-    CommunityPostData(
-      title: 'Hidden beach gems',
-      author: 'Lena',
-      likes: 102,
-      comments: 21,
-      imageUrl:
-          'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80',
-      accent: Color(0xFF0E6245),
-    ),
-  ];
+        CommunityPostData(
+          title: 'Night market finds',
+          author: 'Alex',
+          likes: 124,
+          comments: 18,
+          imageUrl:
+              'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
+          accent: Color(0xFFB4B5BE),
+        ),
+        CommunityPostData(
+          title: 'Sunrise trail tips',
+          author: 'Maya',
+          likes: 87,
+          comments: 32,
+          imageUrl:
+              'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=400&q=80',
+          accent: Color(0xFF144019),
+        ),
+        CommunityPostData(
+          title: 'Street food crawl',
+          author: 'Noah',
+          likes: 65,
+          comments: 14,
+          imageUrl:
+              'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=400&q=80',
+          accent: Color(0xFF8E4C1B),
+        ),
+        CommunityPostData(
+          title: 'Hidden beach gems',
+          author: 'Lena',
+          likes: 102,
+          comments: 21,
+          imageUrl:
+              'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80',
+          accent: Color(0xFF0E6245),
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -145,13 +146,23 @@ class _TourBookHomeState extends State<TourBookHome> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: CommunityPostCard(post: post),
                     ),
-                  )
-                  .toList(),
+                  ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: 0,
+        onItemSelected: (index) {
+          if (index == 4) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const ProfileScreen(),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

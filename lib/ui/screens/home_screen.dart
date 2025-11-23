@@ -10,8 +10,54 @@ import '../components/plan_header.dart';
 import '../components/section_header.dart';
 import '../components/top_bar.dart';
 
-class TourBookHome extends StatelessWidget {
+class TourBookHome extends StatefulWidget {
   const TourBookHome({super.key});
+
+  @override
+  State<TourBookHome> createState() => _TourBookHomeState();
+}
+
+class _TourBookHomeState extends State<TourBookHome> {
+  bool _showAllPosts = false;
+
+  List<CommunityPostData> get _communityPosts => const [
+    CommunityPostData(
+      title: 'Night market finds',
+      author: 'Alex',
+      likes: 124,
+      comments: 18,
+      imageUrl:
+          'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
+      accent: Color(0xFFB4B5BE),
+    ),
+    CommunityPostData(
+      title: 'Sunrise trail tips',
+      author: 'Maya',
+      likes: 87,
+      comments: 32,
+      imageUrl:
+          'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=400&q=80',
+      accent: Color(0xFF144019),
+    ),
+    CommunityPostData(
+      title: 'Street food crawl',
+      author: 'Noah',
+      likes: 65,
+      comments: 14,
+      imageUrl:
+          'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=400&q=80',
+      accent: Color(0xFF8E4C1B),
+    ),
+    CommunityPostData(
+      title: 'Hidden beach gems',
+      author: 'Lena',
+      likes: 102,
+      comments: 21,
+      imageUrl:
+          'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80',
+      accent: Color(0xFF0E6245),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,27 +97,6 @@ class TourBookHome extends StatelessWidget {
       ),
     ];
 
-    final communityPosts = [
-      const CommunityPostData(
-        title: 'Night market finds',
-        author: 'Alex',
-        likes: 124,
-        comments: 18,
-        imageUrl:
-            'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80',
-        accent: Color(0xFFB4B5BE),
-      ),
-      const CommunityPostData(
-        title: 'Sunrise trail tips',
-        author: 'Maya',
-        likes: 87,
-        comments: 32,
-        imageUrl:
-            'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=400&q=80',
-        accent: Color(0xFF144019),
-      ),
-    ];
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -104,12 +129,17 @@ class TourBookHome extends StatelessWidget {
               const SizedBox(height: 12),
               FeaturedList(destinations: featuredDestinations),
               const SizedBox(height: 22),
-              const SectionHeader(
+              SectionHeader(
                 title: 'Community posts',
-                actionText: 'See posts',
+                actionText: _showAllPosts ? 'Show less' : 'Show more',
+                onActionTap: () {
+                  setState(() {
+                    _showAllPosts = !_showAllPosts;
+                  });
+                },
               ),
               const SizedBox(height: 12),
-              ...communityPosts
+              ...(_showAllPosts ? _communityPosts : _communityPosts.take(2))
                   .map(
                     (post) => Padding(
                       padding: const EdgeInsets.only(bottom: 12),

@@ -9,6 +9,7 @@ import '../components/feature_cards.dart';
 import '../components/plan_header.dart';
 import '../components/section_header.dart';
 import '../components/top_bar.dart';
+import 'community_screen.dart';
 import 'profile_screen.dart';
 
 class TourBookHome extends StatefulWidget {
@@ -154,7 +155,13 @@ class _TourBookHomeState extends State<TourBookHome> {
       bottomNavigationBar: BottomNavBar(
         currentIndex: 0,
         onItemSelected: (index) {
-          if (index == 4) {
+          if (index == 3) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const CommunityScreen(),
+              ),
+            );
+          } else if (index == 4) {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) => const ProfileScreen(),

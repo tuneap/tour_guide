@@ -42,3 +42,37 @@ android {
 flutter {
     source = "../.."
 }
+
+// Rename produced APKs to include the desired app name.
+// This registers a simple task that looks for APKs in common Flutter/Android output
+// directories and renames them to start with `Yatrika-A smart trip planner-`.
+tasks.register("renameApk") {
+    doLast {
+        val apkDirs = listOf(
+            File(buildDir, "app/outputs/flutter-apk"),
+            File(buildDir, "outputs/flutter-apk"),
+            File(buildDir, "app/outputs/apk"),
+            File(buildDir, "outputs/apk")
+        )
+        apkDirs.forEach { dir ->
+            if (dir.exists()) {
+                dir.listFiles { f -> f.extension == "apk" }?.forEach { file ->
+                    val safeName = "Yatrika-A smart trip planner-${file.name}"
+                    val dest = File(file.parentFile, safeName)
+                    if (file.renameTo(dest)) {
+                        println("Renamed ${file.name} -> ${dest.name}")
+                    } else {
+                        println("Failed to rename ${file.absolutePath} -> ${dest.absolutePath}")
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Run the rename after common assemble tasks so the final APK has the requested name.
+listOf("assembleRelease", "assembleDebug").forEach { taskName ->
+    tasks.matching { it.name == taskName }.configureEach {
+        finalizedBy("renameApk")
+    }
+}

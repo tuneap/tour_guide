@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
-import 'slider_hint.dart';
 
 class CategoryChips extends StatelessWidget {
   const CategoryChips({super.key, required this.chips});

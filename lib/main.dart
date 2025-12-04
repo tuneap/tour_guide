@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'ui/components/app_colors.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/community_screen.dart';
 import 'ui/screens/profile_screen.dart';
+import 'ui/screens/plan_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,9 +26,12 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primary: AppColors.primary,
         ),
-        textTheme: const TextTheme(
-          bodyMedium: TextStyle(color: AppColors.text),
+        textTheme: GoogleFonts.ubuntuTextTheme(
+          const TextTheme(
+            bodyMedium: TextStyle(color: AppColors.text),
+          ),
         ),
+        fontFamily: GoogleFonts.ubuntu().fontFamily,
       ),
       home: const MainNavigator(),
     );
@@ -46,7 +51,7 @@ class _MainNavigatorState extends State<MainNavigator> {
   List<Widget> get _screens => [
     TourBookHome(onProfileTap: () => setState(() => _currentIndex = 4)),
     const Center(child: Text('Discover')), // Placeholder
-    const Center(child: Text('Plan')), // Placeholder
+    PlanScreen(onBack: () => setState(() => _currentIndex = 0)),
     const CommunityScreen(),
     const ProfileScreen(),
   ];

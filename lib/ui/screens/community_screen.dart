@@ -204,8 +204,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
           ),
           TextButton(
             onPressed: _openCreatePostSheet,
-            child: const Text('Post', style: TextStyle(color: Colors.white)),
             style: TextButton.styleFrom(backgroundColor: const Color(0xFF007BFF)),
+            child: const Text('Post', style: TextStyle(color: Colors.white)),
           ),
           const SizedBox(width: 8),
         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../components/app_colors.dart';
 import 'plan_with_ai_screen.dart';
+import 'tour_packages_screen.dart';
 
 class PlanScreen extends StatefulWidget {
   const PlanScreen({super.key, this.onBack});
@@ -168,7 +169,14 @@ class _PlanScreenState extends State<PlanScreen> {
                       iconColor: AppColors.primary,
                       title: 'View tour packages',
                       subtitle: 'Browse curated trips from trusted partners.',
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TourPackagesScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

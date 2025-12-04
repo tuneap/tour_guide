@@ -73,12 +73,15 @@ class CommunityPostCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      Text(
-                        'by ${post.author}',
-                        style: const TextStyle(
-                          color: AppColors.subtext,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
+                      Flexible(
+                        child: Text(
+                          'by ${post.author}',
+                          style: const TextStyle(
+                            color: AppColors.subtext,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -89,7 +92,7 @@ class CommunityPostCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '${post.likes} likes',
+                        '${post.likes}',
                         style: const TextStyle(
                           color: AppColors.subtext,
                           fontSize: 12,
@@ -106,11 +109,14 @@ class CommunityPostCard extends StatelessWidget {
                         color: Color(0xFF9CA3AF),
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        '${post.comments} comments',
-                        style: const TextStyle(
-                          color: AppColors.subtext,
-                          fontSize: 12,
+                      Flexible(
+                        child: Text(
+                          '${post.comments} comments',
+                          style: const TextStyle(
+                            color: AppColors.subtext,
+                            fontSize: 12,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

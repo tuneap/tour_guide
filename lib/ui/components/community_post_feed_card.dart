@@ -210,34 +210,37 @@ class CommunityPostFeedCard extends StatelessWidget {
                       const SizedBox(height: 12),
 
                       // Action buttons
-                      Row(
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
                         children: [
                           OutlinedButton.icon(
                             onPressed: () {},
-                            icon: const Icon(Icons.map, color: Color(0xFF0F7A54)),
-                            label: const Text('Map', style: TextStyle(color: Color(0xFF0F7A54))),
+                            icon: const Icon(Icons.map, color: Color(0xFF0F7A54), size: 18),
+                            label: const Text('Map', style: TextStyle(color: Color(0xFF0F7A54), fontSize: 12)),
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: Color(0xFFE6F6EE)),
                               backgroundColor: const Color(0xFFEFFAF3),
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                             ),
                           ),
-                          const SizedBox(width: 8),
                           OutlinedButton.icon(
                             onPressed: () {},
-                            icon: const Icon(Icons.share, color: Color(0xFF0F7A54)),
-                            label: const Text('Share', style: TextStyle(color: Color(0xFF0F7A54))),
+                            icon: const Icon(Icons.share, color: Color(0xFF0F7A54), size: 18),
+                            label: const Text('Share', style: TextStyle(color: Color(0xFF0F7A54), fontSize: 12)),
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: Color(0xFFE6F6EE)),
                               backgroundColor: const Color(0xFFEFFAF3),
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                             ),
                           ),
-                          const Spacer(),
                           ElevatedButton.icon(
                             onPressed: () {},
-                            icon: const Icon(Icons.open_in_new),
-                            label: const Text('Visit'),
+                            icon: const Icon(Icons.open_in_new, size: 18),
+                            label: const Text('Visit', style: TextStyle(fontSize: 12)),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF007BFF),
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             ),
                           ),

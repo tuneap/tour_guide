@@ -77,7 +77,7 @@ class _FeaturedListViewState extends State<_FeaturedListView> {
           height: 220,
           child: PageView.builder(
               controller: _pageController,
-              padEnds: true,
+              padEnds: false,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemCount: widget.destinations.length,

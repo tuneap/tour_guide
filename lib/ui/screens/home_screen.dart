@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_colors.dart';
-import '../components/bottom_nav.dart';
 import '../components/category_chips.dart';
 import '../components/community_post_card.dart';
 import '../components/destination_card.dart';
@@ -9,11 +8,11 @@ import '../components/feature_cards.dart';
 import '../components/plan_header.dart';
 import '../components/section_header.dart';
 import '../components/top_bar.dart';
-import 'community_screen.dart';
-import 'profile_screen.dart';
 
 class TourBookHome extends StatefulWidget {
-  const TourBookHome({super.key});
+  const TourBookHome({super.key, this.onProfileTap});
+
+  final VoidCallback? onProfileTap;
 
   @override
   State<TourBookHome> createState() => _TourBookHomeState();
@@ -107,7 +106,7 @@ class _TourBookHomeState extends State<TourBookHome> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TopBar(),
+              TopBar(onProfileTap: widget.onProfileTap),
               const SizedBox(height: 12),
               const CategoryChips(
                 chips: [
@@ -151,24 +150,6 @@ class _TourBookHomeState extends State<TourBookHome> {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: 0,
-        onItemSelected: (index) {
-          if (index == 3) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const CommunityScreen(),
-              ),
-            );
-          } else if (index == 4) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => const ProfileScreen(),
-              ),
-            );
-          }
-        },
       ),
     );
   }

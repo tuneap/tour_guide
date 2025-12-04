@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class TopBar extends StatelessWidget {
-  const TopBar({super.key});
+  const TopBar({super.key, this.onProfileTap});
+
+  final VoidCallback? onProfileTap;
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +63,13 @@ class TopBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          const CircleAvatar(
-            radius: 18,
-            backgroundImage: NetworkImage(
-              'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=60',
+          GestureDetector(
+            onTap: onProfileTap,
+            child: const CircleAvatar(
+              radius: 18,
+              backgroundImage: NetworkImage(
+                'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=200&q=60',
+              ),
             ),
           ),
         ],

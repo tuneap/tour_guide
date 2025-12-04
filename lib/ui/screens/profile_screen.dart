@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_colors.dart';
-import '../components/bottom_nav.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -112,14 +111,6 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: 4,
-        onItemSelected: (index) {
-          if (index == 0) {
-            Navigator.of(context).popUntil((route) => route.isFirst);
-          }
-        },
       ),
     );
   }

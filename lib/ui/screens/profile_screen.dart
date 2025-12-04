@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_colors.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({
+    super.key,
+    this.isLoggedIn = false,
+    this.onLogin,
+  });
+
+  final bool isLoggedIn;
+  final VoidCallback? onLogin;
 
   @override
   Widget build(BuildContext context) {
+    if (!isLoggedIn) {
+      return _GuestProfileView(onLogin: onLogin);
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -536,6 +548,372 @@ class _ProfileInputField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.4),
+        ),
+      ),
+    );
+  }
+}
+
+class _GuestProfileView extends StatelessWidget {
+  const _GuestProfileView({this.onLogin});
+
+  final VoidCallback? onLogin;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Sign in to manage your account',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.subtext,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 40),
+
+              // Guest illustration
+              Center(
+                child: Container(
+                  width: 120,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE6F6EE),
+                    borderRadius: BorderRadius.circular(60),
+                  ),
+                  child: const Icon(
+                    Icons.person_outline,
+                    size: 60,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Guest message
+              Center(
+                child: Column(
+                  children: const [
+                    Text(
+                      'Welcome, Guest!',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Sign in to unlock all features',
+                      style: TextStyle(
+                        color: AppColors.subtext,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 32),
+
+              // Benefits list
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.stroke),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'With an account you can:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    _BenefitItem(
+                      icon: Icons.bookmark_outline,
+                      text: 'Save and book your favorite tours',
+                    ),
+                    SizedBox(height: 12),
+                    _BenefitItem(
+                      icon: Icons.map_outlined,
+                      text: 'Plan trips with AI assistance',
+                    ),
+                    SizedBox(height: 12),
+                    _BenefitItem(
+                      icon: Icons.history,
+                      text: 'Access your booking history',
+                    ),
+                    SizedBox(height: 12),
+                    _BenefitItem(
+                      icon: Icons.notifications_outlined,
+                      text: 'Get personalized recommendations',
+                    ),
+                    SizedBox(height: 12),
+                    _BenefitItem(
+                      icon: Icons.group_outlined,
+                      text: 'Connect with travel community',
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 32),
+
+              // Sign in button
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(
+                          onLoginSuccess: () {
+                            Navigator.pop(context);
+                            if (onLogin != null) {
+                              onLogin!();
+                            }
+                          },
+                          onGuestContinue: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // Create account button
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(
+                          onLoginSuccess: () {
+                            Navigator.pop(context);
+                            if (onLogin != null) {
+                              onLogin!();
+                            }
+                          },
+                          onGuestContinue: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: AppColors.primary),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'Create Account',
+                    style: TextStyle(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 32),
+
+              // Settings available without login
+              const Text(
+                'Available without signing in',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  color: AppColors.subtext,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.stroke),
+                ),
+                child: Column(
+                  children: [
+                    _GuestSettingTile(
+                      icon: Icons.public,
+                      title: 'Language',
+                      subtitle: 'English (US)',
+                      onTap: () {},
+                    ),
+                    const Divider(height: 1),
+                    _GuestSettingTile(
+                      icon: Icons.monetization_on_outlined,
+                      title: 'Currency',
+                      subtitle: 'USD (\$)',
+                      onTap: () {},
+                    ),
+                    const Divider(height: 1),
+                    _GuestSettingTile(
+                      icon: Icons.help_outline,
+                      title: 'Help Center',
+                      subtitle: 'FAQs and support',
+                      onTap: () {},
+                    ),
+                    const Divider(height: 1),
+                    _GuestSettingTile(
+                      icon: Icons.info_outline,
+                      title: 'About',
+                      subtitle: 'Version 1.0.0',
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 80),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BenefitItem extends StatelessWidget {
+  const _BenefitItem({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 36,
+          height: 36,
+          decoration: BoxDecoration(
+            color: const Color(0xFFE6F6EE),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: AppColors.primary, size: 18),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 14),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _GuestSettingTile extends StatelessWidget {
+  const _GuestSettingTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Icon(icon, color: AppColors.subtext, size: 22),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      color: AppColors.subtext,
+                      fontSize: 13,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(
+              Icons.chevron_right,
+              color: AppColors.subtext,
+              size: 20,
+            ),
+          ],
         ),
       ),
     );

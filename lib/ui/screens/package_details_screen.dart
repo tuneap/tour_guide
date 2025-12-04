@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_colors.dart';
+import '../components/login_required_dialog.dart';
 
 class PackageDetailData {
   const PackageDetailData({
@@ -77,10 +78,12 @@ class PackageDetailsScreen extends StatelessWidget {
     super.key,
     required this.packageTitle,
     required this.packagePrice,
+    this.isLoggedIn = false,
   });
 
   final String packageTitle;
   final int packagePrice;
+  final bool isLoggedIn;
 
   PackageDetailData get _packageData => PackageDetailData(
     title: packageTitle,
@@ -699,7 +702,20 @@ class PackageDetailsScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (!isLoggedIn) {
+                        LoginRequiredDialog.show(
+                          context,
+                          title: 'Sign in to book',
+                          message: 'Create an account or sign in to book this tour package and manage your trips.',
+                        );
+                      } else {
+                        // TODO: Navigate to booking flow
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Booking flow coming soon!')),
+                        );
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),

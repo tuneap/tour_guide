@@ -48,16 +48,29 @@ class MainNavigator extends StatefulWidget {
 
 class _MainNavigatorState extends State<MainNavigator> {
   int _currentIndex = 0;
+  bool _isLoggedIn = false;
+
+  void _handleLogin() {
+    setState(() {
+      _isLoggedIn = true;
+    });
+  }
+
+  void _handleLogout() {
+    setState(() {
+      _isLoggedIn = false;
+    });
+  }
 
   List<Widget> get _screens => [
     TourBookHome(onProfileTap: () => setState(() => _currentIndex = 4)),
-    const TourPackagesScreen(showBackButton: false),
+    TourPackagesScreen(showBackButton: false, isLoggedIn: _isLoggedIn),
     PlanScreen(
       onBack: () => setState(() => _currentIndex = 0),
       onNavigateToDiscover: () => setState(() => _currentIndex = 1),
     ),
     const CommunityScreen(),
-    const ProfileScreen(),
+    ProfileScreen(isLoggedIn: _isLoggedIn, onLogin: _handleLogin),
   ];
 
   @override

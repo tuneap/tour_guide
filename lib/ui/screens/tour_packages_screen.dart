@@ -28,9 +28,14 @@ class TourPackage {
 }
 
 class TourPackagesScreen extends StatefulWidget {
-  const TourPackagesScreen({super.key, this.showBackButton = true});
+  const TourPackagesScreen({
+    super.key,
+    this.showBackButton = true,
+    this.isLoggedIn = false,
+  });
 
   final bool showBackButton;
+  final bool isLoggedIn;
 
   @override
   State<TourPackagesScreen> createState() => _TourPackagesScreenState();
@@ -302,7 +307,10 @@ class _TourPackagesScreenState extends State<TourPackagesScreen> {
                     const SizedBox(height: 16),
 
                     // Package cards
-                    ..._packages.map((package) => _PackageCard(package: package)),
+                    ..._packages.map((package) => _PackageCard(
+                      package: package,
+                      isLoggedIn: widget.isLoggedIn,
+                    )),
 
                     const SizedBox(height: 80),
                   ],
@@ -317,9 +325,10 @@ class _TourPackagesScreenState extends State<TourPackagesScreen> {
 }
 
 class _PackageCard extends StatelessWidget {
-  const _PackageCard({required this.package});
+  const _PackageCard({required this.package, this.isLoggedIn = false});
 
   final TourPackage package;
+  final bool isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
@@ -487,6 +496,7 @@ class _PackageCard extends StatelessWidget {
                             builder: (context) => PackageDetailsScreen(
                               packageTitle: package.title,
                               packagePrice: package.price,
+                              isLoggedIn: isLoggedIn,
                             ),
                           ),
                         );

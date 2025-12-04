@@ -7,6 +7,7 @@ import 'ui/screens/home_screen.dart';
 import 'ui/screens/community_screen.dart';
 import 'ui/screens/profile_screen.dart';
 import 'ui/screens/plan_screen.dart';
+import 'ui/screens/tour_packages_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,8 +51,11 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   List<Widget> get _screens => [
     TourBookHome(onProfileTap: () => setState(() => _currentIndex = 4)),
-    const Center(child: Text('Discover')), // Placeholder
-    PlanScreen(onBack: () => setState(() => _currentIndex = 0)),
+    const TourPackagesScreen(showBackButton: false),
+    PlanScreen(
+      onBack: () => setState(() => _currentIndex = 0),
+      onNavigateToDiscover: () => setState(() => _currentIndex = 1),
+    ),
     const CommunityScreen(),
     const ProfileScreen(),
   ];

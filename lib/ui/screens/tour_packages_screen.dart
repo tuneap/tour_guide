@@ -28,7 +28,9 @@ class TourPackage {
 }
 
 class TourPackagesScreen extends StatefulWidget {
-  const TourPackagesScreen({super.key});
+  const TourPackagesScreen({super.key, this.showBackButton = true});
+
+  final bool showBackButton;
 
   @override
   State<TourPackagesScreen> createState() => _TourPackagesScreenState();
@@ -121,11 +123,13 @@ class _TourPackagesScreenState extends State<TourPackagesScreen> {
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
               child: Row(
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: const Icon(Icons.chevron_left, color: AppColors.text, size: 28),
-                  ),
-                  const SizedBox(width: 12),
+                  if (widget.showBackButton) ...[
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(Icons.chevron_left, color: AppColors.text, size: 28),
+                    ),
+                    const SizedBox(width: 12),
+                  ],
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

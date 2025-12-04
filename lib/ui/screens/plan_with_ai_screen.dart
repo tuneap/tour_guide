@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/app_colors.dart';
+import 'itinerary_screen.dart';
 
 class PlanWithAIScreen extends StatefulWidget {
   const PlanWithAIScreen({super.key, this.onBack});
@@ -22,7 +23,7 @@ class _PlanWithAIScreenState extends State<PlanWithAIScreen> {
   String? _selectedDestination;
   final Set<String> _selectedVibes = {};
 
-  final List<String> _suggestedDestinations = ['Tokyo', 'Paris', 'Bali', 'New York'];
+  final List<String> _suggestedDestinations = ['Kathmandu', 'Pokhara', 'Chitwan', 'Lumbini'];
   final List<String> _vibeOptions = ['Food', 'Nature', 'Culture', 'Adventure', 'Nightlife', 'Family'];
 
   @override
@@ -371,7 +372,12 @@ class _PlanWithAIScreenState extends State<PlanWithAIScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Generate itinerary logic
+                          debugPrint('Generate button tapped');
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const ItineraryScreen(),
+                            ),
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,

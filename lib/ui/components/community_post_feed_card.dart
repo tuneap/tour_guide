@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_routes.dart';
 import 'app_colors.dart';
-import '../screens/community_post_detail.dart';
 
 class CommunityFeed {
   const CommunityFeed({
@@ -37,9 +38,7 @@ class CommunityPostFeedCard extends StatelessWidget {
         // quick visual confirmation and debug log that a tap occurred
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Opening post...')));
         debugPrint('CommunityPostFeedCard tapped: ${feed.title}');
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => CommunityPostDetail(feed: feed)),
-        );
+        context.push(AppRoutes.communityPost, extra: feed);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),

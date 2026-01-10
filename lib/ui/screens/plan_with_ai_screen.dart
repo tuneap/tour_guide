@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_routes.dart';
 import '../components/app_colors.dart';
-import 'itinerary_screen.dart';
 
 class PlanWithAIScreen extends StatefulWidget {
   const PlanWithAIScreen({super.key, this.onBack});
@@ -54,7 +55,7 @@ class _PlanWithAIScreenState extends State<PlanWithAIScreen> {
                       if (widget.onBack != null) {
                         widget.onBack!();
                       } else {
-                        Navigator.pop(context);
+                        context.pop();
                       }
                     },
                     child: const Row(
@@ -373,11 +374,7 @@ class _PlanWithAIScreenState extends State<PlanWithAIScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           debugPrint('Generate button tapped');
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => const ItineraryScreen(),
-                            ),
-                          );
+                          context.push(AppRoutes.itinerary);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,

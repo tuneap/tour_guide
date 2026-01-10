@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_routes.dart';
 import '../components/app_colors.dart';
-import 'plan_with_ai_screen.dart';
 
 class PlanScreen extends StatefulWidget {
   const PlanScreen({super.key, this.onBack, this.onNavigateToDiscover});
@@ -154,12 +155,7 @@ class _PlanScreenState extends State<PlanScreen> {
                       title: 'Plan with AI',
                       subtitle: 'Tell us your vibe and constraints; get a tailored itinerary.',
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PlanWithAIScreen(),
-                          ),
-                        );
+                        context.push(AppRoutes.planAi);
                       },
                     ),
                     const SizedBox(height: 12),
@@ -260,12 +256,7 @@ class _PlanScreenState extends State<PlanScreen> {
                         Expanded(
                           child: OutlinedButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PlanWithAIScreen(),
-                                ),
-                              );
+                              context.push(AppRoutes.planAi);
                             },
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: AppColors.primary),

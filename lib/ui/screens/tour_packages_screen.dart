@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_routes.dart';
 import '../components/app_colors.dart';
-import 'package_details_screen.dart';
 
 class TourPackage {
   const TourPackage({
@@ -31,11 +32,9 @@ class TourPackagesScreen extends StatefulWidget {
   const TourPackagesScreen({
     super.key,
     this.showBackButton = true,
-    this.isLoggedIn = false,
   });
 
   final bool showBackButton;
-  final bool isLoggedIn;
 
   @override
   State<TourPackagesScreen> createState() => _TourPackagesScreenState();
@@ -130,7 +129,7 @@ class _TourPackagesScreenState extends State<TourPackagesScreen> {
                 children: [
                   if (widget.showBackButton) ...[
                     GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => context.pop(),
                       child: const Icon(Icons.chevron_left, color: AppColors.text, size: 28),
                     ),
                     const SizedBox(width: 12),
@@ -307,10 +306,7 @@ class _TourPackagesScreenState extends State<TourPackagesScreen> {
                     const SizedBox(height: 16),
 
                     // Package cards
-                    ..._packages.map((package) => _PackageCard(
-                      package: package,
-                      isLoggedIn: widget.isLoggedIn,
-                    )),
+                    ..._packages.map((package) => _PackageCard(package: package)),
 
                     const SizedBox(height: 80),
                   ],
@@ -325,10 +321,9 @@ class _TourPackagesScreenState extends State<TourPackagesScreen> {
 }
 
 class _PackageCard extends StatelessWidget {
-  const _PackageCard({required this.package, this.isLoggedIn = false});
+  const _PackageCard({required this.package});
 
   final TourPackage package;
-  final bool isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
@@ -490,14 +485,10 @@ class _PackageCard extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PackageDetailsScreen(
-                              packageTitle: package.title,
-                              packagePrice: package.price,
-                              isLoggedIn: isLoggedIn,
-                            ),
+                        context.push(
+                          AppRoutes.packageDetailsLocation(
+                            title: package.title,
+                            price: package.price,
                           ),
                         );
                       },

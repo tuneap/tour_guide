@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_routes.dart';
 import '../components/app_colors.dart';
-import '../screens/login_screen.dart';
 
 class LoginRequiredDialog extends StatelessWidget {
   const LoginRequiredDialog({
@@ -103,22 +104,10 @@ class LoginRequiredDialog extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(
-                      onLoginSuccess: () {
-                        Navigator.pop(context);
-                        if (onLoginSuccess != null) {
-                          onLoginSuccess!();
-                        }
-                      },
-                      onGuestContinue: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
+                context.pop();
+                context.push(
+                  AppRoutes.login,
+                  extra: LoginRouteArgs(onLoginSuccess: onLoginSuccess),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -146,22 +135,10 @@ class LoginRequiredDialog extends StatelessWidget {
             width: double.infinity,
             child: OutlinedButton(
               onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(
-                      onLoginSuccess: () {
-                        Navigator.pop(context);
-                        if (onLoginSuccess != null) {
-                          onLoginSuccess!();
-                        }
-                      },
-                      onGuestContinue: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
+                context.pop();
+                context.push(
+                  AppRoutes.login,
+                  extra: LoginRouteArgs(onLoginSuccess: onLoginSuccess),
                 );
               },
               style: OutlinedButton.styleFrom(
@@ -186,7 +163,7 @@ class LoginRequiredDialog extends StatelessWidget {
 
           // Cancel
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => context.pop(),
             child: const Text(
               'Maybe later',
               style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../components/app_colors.dart';
 import '../components/login_required_dialog.dart';
@@ -262,7 +263,7 @@ class PackageDetailsScreen extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => context.pop(),
                     child: const Icon(Icons.chevron_left, color: AppColors.text, size: 28),
                   ),
                   const SizedBox(width: 12),

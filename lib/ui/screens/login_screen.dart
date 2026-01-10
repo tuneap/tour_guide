@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_routes.dart';
 import '../components/app_colors.dart';
-import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, this.onLoginSuccess, this.onGuestContinue});
@@ -335,12 +336,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegisterScreen(
-                            onRegisterSuccess: widget.onLoginSuccess,
-                          ),
+                      context.push(
+                        AppRoutes.register,
+                        extra: RegisterRouteArgs(
+                          onRegisterSuccess: widget.onLoginSuccess,
                         ),
                       );
                     },

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../app_routes.dart';
 import '../components/app_colors.dart';
-import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({
@@ -695,21 +696,9 @@ class _GuestProfileView extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(
-                          onLoginSuccess: () {
-                            Navigator.pop(context);
-                            if (onLogin != null) {
-                              onLogin!();
-                            }
-                          },
-                          onGuestContinue: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
+                    context.push(
+                      AppRoutes.login,
+                      extra: LoginRouteArgs(onLoginSuccess: onLogin),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -737,21 +726,9 @@ class _GuestProfileView extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(
-                          onLoginSuccess: () {
-                            Navigator.pop(context);
-                            if (onLogin != null) {
-                              onLogin!();
-                            }
-                          },
-                          onGuestContinue: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
+                    context.push(
+                      AppRoutes.login,
+                      extra: LoginRouteArgs(onLoginSuccess: onLogin),
                     );
                   },
                   style: OutlinedButton.styleFrom(

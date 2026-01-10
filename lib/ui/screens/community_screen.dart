@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../components/app_colors.dart';
 import '../components/community_post_feed_card.dart';
@@ -151,7 +152,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+                  TextButton(onPressed: () => ctx.pop(), child: const Text('Cancel')),
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
@@ -168,7 +169,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         likes: 0,
                       );
                       setState(() => _posts.insert(0, newPost));
-                      Navigator.pop(ctx);
+                      ctx.pop();
                     },
                     child: const Text('Post'),
                   ),

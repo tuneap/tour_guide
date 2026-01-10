@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../components/app_colors.dart';
 
@@ -42,7 +43,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               // Back button
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => context.pop(),
                 child: Container(
                   width: 40,
                   height: 40,
@@ -282,7 +283,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (widget.onRegisterSuccess != null) {
                             widget.onRegisterSuccess!();
                           }
-                          Navigator.pop(context);
+                          context.pop();
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -364,7 +365,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => context.pop(),
                     child: const Text(
                       'Sign In',
                       style: TextStyle(
